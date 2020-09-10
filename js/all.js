@@ -32,7 +32,7 @@ Highcharts.chart('container', {
   plotOptions: {
     series: {
       marker: {
-        enabled: false
+        enabled: true
       }
     }
   },
