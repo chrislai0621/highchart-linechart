@@ -15,12 +15,12 @@ Highcharts.chart('container', {
       year: '%b'
     },
     title: {
-      text: 'Date'
+      text: ''
     }
   },
   yAxis: {
     title: {
-      text: 'Snow depth (m)'
+      text: ''
     },
     min: 0
   },
@@ -32,12 +32,12 @@ Highcharts.chart('container', {
   plotOptions: {
     series: {
       marker: {
-        enabled: true
+        enabled: false
       }
     }
   },
 
-  colors: ['#6CF', '#39F', '#06C', '#036', '#000'],
+  colors: ['red', '#39F', '#06C', '#036', '#000'],
 
   // Define the data points. All series have a dummy year
   // of 1970/71 in order to be compared on the same x axis. Note
