@@ -1,3 +1,46 @@
+const orignalData =[
+  {
+    register:20,
+    createDate:'2020-09-01 16:02:02'
+  },
+  {
+    register: 10,
+    createDate: '2020-09-10 16:02:02'
+  },
+  {
+    register: 30,
+    createDate: '2020-09-18 16:02:02'
+  },
+  {
+    register: 20,
+    createDate: '2020-09-19 16:02:02'
+  },
+  {
+    register: 100,
+    createDate: '2020-09-20 16:02:02'
+  },
+  {
+    register: 35,
+    createDate: '2020-09-21 16:02:02'
+  },
+  {
+    register: 100,
+    createDate: '2020-09-25 16:02:02'
+  },
+  {
+    register: 35,
+    createDate: '2020-09-30 16:02:02'
+  },
+]
+var dataArray =[];//传入的叠数
+var lineColor ='#BF2621';//折线的颜色
+var chartTitle='注册人数';//x单位
+var yName='人';//y单位
+for(let i = 0;i < orignalData.length ;i++)
+{
+  let date = new Date(orignalData[i].createDate);
+  dataArray.push ([Date.UTC(date.getFullYear(), date.getMonth() , date.getDate()), orignalData[i].register]);
+}
 Highcharts.chart('container', {
   chart: {
     type: 'line',
@@ -57,23 +100,20 @@ Highcharts.chart('container', {
     min: 0
   },
   tooltip: {
-    // headerFormat: '<b>{point.x:%b}/{point.x:%e}</b><br>',
-    // pointFormat: '注册人数: {point.y:.2f} 人',
     formatter: function () {
       const date = new Date(this.x);
        const m = date.getMonth() +1;
       let htmlStr =`<b>${m}月${date.getDate()}日</b><br>
-     注册人数: ${this.y}人`;        
+     ${chartTitle}: ${this.y}${yName}`;        
         return htmlStr;
       },
   },
-
   plotOptions: {
     series: {
       marker: {
         enabled: true 
       },
-      color: '#BF2621', // 中間折線圖的顏色條改
+      color: this.lineColor, // 中間折線圖的顏色條改
       showInLegend: false //隱藏系列名稱
     }
   },
@@ -84,43 +124,10 @@ Highcharts.chart('container', {
   {
     enabled: false //是否顯示匯出的漢堡選單
   },
-  // Define the data points. All series have a dummy year
-  // of 1970/71 in order to be compared on the same x axis. Note
-  // that in JavaScript, months start at 0 for January, 1 for February etc.
+  
   series: [{
     name: "",
-    data: [
-      [Date.UTC(2020, 9, 1), 5],
-      [Date.UTC(2020, 9, 2), 15],
-      [Date.UTC(2020, 9, 3), 25],
-      [Date.UTC(2020, 9, 4), 35],
-      [Date.UTC(2020, 9, 5), 45],
-      [Date.UTC(2020, 9, 6), 20],
-      [Date.UTC(2020, 9, 7), 45],
-      [Date.UTC(2020, 9, 8), 200],
-      [Date.UTC(2020, 9, 9), 150],
-      [Date.UTC(2020, 9, 10), 50],
-      [Date.UTC(2020, 9, 11), 50],
-      [Date.UTC(2020, 9, 12), 15],
-      [Date.UTC(2020, 9, 13), 25],
-      [Date.UTC(2020, 9, 14), 35],
-      [Date.UTC(2020, 9, 15), 45],
-      [Date.UTC(2020, 9, 16), 20],
-      [Date.UTC(2020, 9, 17), 45],
-      [Date.UTC(2020, 9, 18), 200],
-      [Date.UTC(2020, 9, 19), 150],
-      [Date.UTC(2020, 9, 20), 150],
-      [Date.UTC(2020, 9, 21), 150],
-      [Date.UTC(2020, 9, 22), 15],
-      [Date.UTC(2020, 9, 23), 25],
-      [Date.UTC(2020, 9, 24), 35],
-      [Date.UTC(2020, 9, 25), 45],
-      [Date.UTC(2020, 9, 26), 20],
-      [Date.UTC(2020, 9, 27), 45],
-      [Date.UTC(2020, 9, 28), 200],
-      [Date.UTC(2020, 9, 29), 150],
-      [Date.UTC(2020, 9, 30), 50]
-    ]
+    data: this.dataArray,
   }],
 
   responsive: {
