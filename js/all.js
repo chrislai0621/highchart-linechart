@@ -1,49 +1,94 @@
 Highcharts.chart('container', {
   chart: {
-    type: 'spline'
+    type: 'line',
+    backgroundColor: 'black',
+    polar: true,
   },
   title: {
-    text: 'Regeister People'
+    text: '注册人数',
+    style: {
+      color: '#C6AB80'//標題字型顏色
+    }
   },
   subtitle: {
     text: '2020/09/01-2020/09/30'
   },
   xAxis: {
+    tickInterval: 7 * 24 * 3600 * 1000, // one week
+    tickColor:'#C6AB80',
     type: 'datetime',
     dateTimeLabelFormats: { // don't display the dummy year
-      month: '%e. %b',
+      month: '%b %e',
       year: '%b'
     },
     title: {
-      text: ''
-    }
+      text: '',
+      style: {
+        color: '#C6AB80'
+      }     
+    },
+    lineColor: '#C6AB80', //基線顏色
+    gridLineColor: '#C6AB80',//網格（豎線）顏色
+    labels: {
+      style: {
+        color: '#C6AB80' //X軸 123456的顏色
+      },
+      formatter: function () {
+        const  date = new Date(this.value);
+        const m = date.getMonth() +1;
+        
+        return m+'/' + date.getDate();
+      },
+    },
   },
   yAxis: {
     title: {
-      text: ''
+      text: '',
+      style: {
+        color: '#C6AB80'
+      } 
+    },
+    lineColor: '#C6AB80',
+    labels: {
+      style: {
+        color: '#C6AB80'
+      }
     },
     min: 0
   },
   tooltip: {
-    headerFormat: '<b>{point.x:%e. %b}</b><br>',
-    pointFormat: 'Register People: {point.y:.2f} people'
+    // headerFormat: '<b>{point.x:%b}/{point.x:%e}</b><br>',
+    // pointFormat: '注册人数: {point.y:.2f} 人',
+    formatter: function () {
+      const date = new Date(this.x);
+       const m = date.getMonth() +1;
+      let htmlStr =`<b>${m}月${date.getDate()}日</b><br>
+     注册人数: ${this.y}人`;        
+        return htmlStr;
+      },
   },
 
   plotOptions: {
     series: {
       marker: {
-        enabled: true
-      }
+        enabled: true 
+      },
+      color: '#BF2621', // 中間折線圖的顏色條改
+      showInLegend: false //隱藏系列名稱
     }
   },
-
-  colors: ['red', '#39F', '#06C', '#036', '#000'],
-
+  credits: {
+    enabled: false//不显示右下角官方LOGO
+  },
+  exporting : //匯出設定
+  {
+    enabled: false //是否顯示匯出的漢堡選單
+  },
   // Define the data points. All series have a dummy year
   // of 1970/71 in order to be compared on the same x axis. Note
   // that in JavaScript, months start at 0 for January, 1 for February etc.
   series: [{
-    name: "Register people",
+    name: "",
     data: [
       [Date.UTC(2020, 9, 1), 5],
       [Date.UTC(2020, 9, 2), 15],
@@ -81,7 +126,7 @@ Highcharts.chart('container', {
   responsive: {
     rules: [{
       condition: {
-        maxWidth: 500
+        maxWidth: 550
       },
       chartOptions: {
         plotOptions: {

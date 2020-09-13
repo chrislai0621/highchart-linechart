@@ -31,3 +31,18 @@
 .highcharts-data-table tr:hover {
   background: #f1f7ff;
 }
+/* 改中間橫條線顏色 */
+.highcharts-grid-line {
+  stroke: #C6AB80; 
+}
+/* 將直條線寬度設為0 */
+.highcharts-xaxis-grid .highcharts-grid-line {
+  stroke-width: 0; 
+}
+.dot
+{
+  width:8px;
+  height:8px;
+  background-color:red;
+  border-radius:999em ;
+}
